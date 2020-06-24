@@ -1,0 +1,104 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion comSdk
+
+    defaultConfig {
+        applicationId "com.witation.ktdemo"
+        minSdkVersion minSdk
+        targetSdkVersion tarSdk
+        versionCode verCode
+        versionName verName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            keyAlias 'ktdemo'
+            keyPassword '123456'
+            storeFile file('../release.jks')
+            storePassword '123456'
+        }
+        debug {
+            keyAlias 'ktdemo'
+            keyPassword '123456'
+            storeFile file('../release.jks')
+            storePassword '123456'
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfigs.release
+            minifyEnabled true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfigs.debug
+            minifyEnabled false
+            zipAlignEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    viewBinding {
+        enabled = true
+    }
+
+    // 设置Java编译版本
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation junit
+    androidTestImplementation androidx.testExt
+    androidTestImplementation androidx.testEspresso
+
+    implementation androidx.appcompat
+    implementation androidx.constraintlayout
+    implementation androidx.recyclerview
+    implementation androidx.lifecycleKtxRuntime
+    implementation androidx.lifecycleKtxLiveData
+    implementation androidx.lifecycleKtxViewModel
+    implementation androidx.coreKtx
+
+    implementation google.material
+
+    implementation jetbrains.ktStdlib
+    implementation jetbrains.ktReflect
+    implementation jetbrains.ktCoroutineAndroid
+
+
+    implementation squareup.retrofit
+    implementation squareup.converterGson
+    implementation squareup.interceptor
+
+    implementation github.baseRecyclerViewAdapterHelper
+    implementation github.glide
+    annotationProcessor github.glideCompiler
+
+    implementation refresh.layout
+    implementation refresh.headerClassic
+    implementation refresh.headerMaterial
+    implementation refresh.footerClassic
+
+    implementation permissionx
+
+    implementation skeleton
+    implementation shimmerlayout
+
+}
